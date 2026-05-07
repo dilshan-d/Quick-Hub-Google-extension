@@ -1,0 +1,7 @@
+# Chrome Extension files
+*.log
+.DS_Store
+Thumbs.db
+
+# Backup files
+*-backup.json

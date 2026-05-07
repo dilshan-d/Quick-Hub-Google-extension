@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuickHub | Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- SortableJS for Drag and Drop -->
+    <script src="sortable.min.js"></script>
+</head>
+<body>
+
+    <div class="app-container">
+        <!-- Header Section -->
+        <header class="main-header">
+            <div class="search-wrapper glass">
+                <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><path d="M21 21l-4.35-4.35"></path></svg>
+                <input type="text" id="global-search" placeholder="Search shortcuts or web..." autocomplete="off">
+                <span class="search-hint">/</span>
+            </div>
+            
+            <div class="header-actions">
+                <button id="toggle-theme" class="icon-btn glass" title="Toggle Theme">
+                    <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                </button>
+                <button id="open-settings" class="icon-btn glass" title="Settings">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+                </button>
+            </div>
+        </header>
+
+        <!-- Categories Sidebar/Nav -->
+        <nav class="categories-nav">
+            <div id="categories-list" class="categories-list">
+                <!-- Categories will be injected here -->
+            </div>
+            <button id="add-category-btn" class="add-cat-btn" title="New Category">+</button>
+        </nav>
+
+        <!-- Main Grid Area -->
+        <main class="grid-area">
+            <div id="shortcuts-grid" class="shortcuts-grid">
+                <!-- Shortcuts will be injected here -->
+                <button id="initial-add-btn" class="shortcut-card add-card glass">
+                    <div class="add-icon">+</div>
+                    <span>Add Shortcut</span>
+                </button>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modals -->
+    <div id="shortcut-modal" class="modal-overlay">
+        <div class="modal-content glass">
+            <h2 id="modal-title">Add Shortcut</h2>
+            <form id="shortcut-form">
+                <input type="hidden" id="edit-id">
+                <div class="form-group">
+                    <label>Website Name</label>
+                    <input type="text" id="site-name" placeholder="Google" required>
+                </div>
+                <div class="form-group">
+                    <label>URL</label>
+                    <input type="url" id="site-url" placeholder="https://google.com" required>
+                </div>
+                <div class="form-group">
+                    <label>Custom Icon URL (Optional)</label>
+                    <input type="url" id="site-icon" placeholder="https://site.com/icon.png">
+                </div>
+                <div class="form-group">
+                    <label>Category</label>
+                    <select id="site-category"></select>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" id="cancel-shortcut" class="btn-secondary">Cancel</button>
+                    <button type="submit" class="btn-primary">Save Shortcut</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Settings Drawer -->
+    <div id="settings-drawer" class="drawer-overlay">
+        <div class="drawer-content glass">
+            <div class="drawer-header">
+                <h2>Settings</h2>
+                <button id="close-settings" class="close-btn">&times;</button>
+            </div>
+            <div class="settings-sections">
+                <div class="setting-item">
+                    <label>Theme Color</label>
+                    <input type="color" id="theme-color-picker" value="#00d2ff">
+                </div>
+                <div class="setting-item">
+                    <label>Grid Size</label>
+                    <input type="range" id="grid-size-slider" min="80" max="150" value="110">
+                </div>
+                <div class="setting-item">
+                    <label>Background Image</label>
+                    <input type="file" id="bg-upload" accept="image/*">
+                    <button id="reset-bg" class="btn-small">Reset to Default</button>
+                </div>
+                <div class="setting-item">
+                    <label>Data Management</label>
+                    <div class="data-btns">
+                        <button id="export-btn" class="btn-small">Export JSON</button>
+                        <button id="import-btn" class="btn-small">Import JSON</button>
+                        <input type="file" id="import-file" style="display:none" accept=".json">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Onboarding Popup -->
+    <div id="onboarding" class="onboarding-overlay">
+        <div class="onboarding-card glass">
+            <div class="onboarding-slides">
+                <div class="slide active">
+                    <h1>Welcome to QuickHub</h1>
+                    <p>Your premium dashboard for organizing your favorite corners of the web.</p>
+                    <button class="next-slide btn-primary">Let's Go</button>
+                </div>
+                <div class="slide">
+                    <h1>Customization</h1>
+                    <p>Drag and drop to reorder, add categories, and customize themes.</p>
+                    <button id="finish-onboarding" class="btn-primary">Start Organizing</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
