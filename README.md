@@ -16,7 +16,7 @@ QuickHub is a modern, glassmorphic dashboard that lives in your Chrome toolbar. 
 1. **Open Chrome** and navigate to `chrome://extensions/`.
 2. **Enable Developer Mode** by toggling the switch in the top-right corner.
 3. Click the **"Load unpacked"** button.
-4. Select the folder where you saved these files (`c:\Users\LENOVO\OneDrive\Pictures\extension`).
+4. Select the folder where you saved these files
 5. Click the **Puzzle Piece icon** in your toolbar and pin **QuickHub** for easy access!
 
 ## ⌨ Keyboard Shortcuts
