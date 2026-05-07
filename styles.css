@@ -1,9 +1,10 @@
 :root {
     --primary-color: #00d2ff;
-    --bg-dark: transparent;
+    --bg-dark: #020617; /* Deep midnight */
+    --bg-gradient: linear-gradient(135deg, #020617 0%, #0f172a 100%);
     --bg-light: #f8fafc;
-    --glass-bg: rgba(255, 255, 255, 0.05);
-    --glass-border: rgba(255, 255, 255, 0.1);
+    --glass-bg: rgba(255, 255, 255, 0.03);
+    --glass-border: rgba(255, 255, 255, 0.08);
     --text-main: #f1f5f9;
     --text-muted: #94a3b8;
     --grid-size: 110px;
@@ -31,7 +32,8 @@ body {
     max-height: 600px;
     overflow-y: auto;
     overflow-x: hidden;
-    background: var(--bg-dark);
+    background: var(--bg-gradient);
+    background-attachment: fixed;
 }
 
 .app-container {
