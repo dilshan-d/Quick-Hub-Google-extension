@@ -38,6 +38,7 @@ const themeToggle = document.getElementById('toggle-theme');
  */
 async function init() {
     await loadState();
+    if (searchInput) searchInput.value = ''; 
     setupEventListeners();
     setupSortable();
     render();
@@ -52,6 +53,9 @@ async function loadState() {
         chrome.storage.local.get(['quickHubState'], (result) => {
             if (result.quickHubState) {
                 state = { ...state, ...result.quickHubState };
+                // Reset session-specific state
+                state.searchQuery = '';
+                state.activeCategory = 'All'; 
             } else {
                 state.shortcuts = [...DEFAULT_SHORTCUTS];
                 state.categories = [...DEFAULT_CATEGORIES];
@@ -64,7 +68,9 @@ async function loadState() {
 }
 
 function saveState() {
-    chrome.storage.local.set({ quickHubState: state });
+    // Clone state but exclude session-specific fields
+    const { searchQuery, ...persistentState } = state;
+    chrome.storage.local.set({ quickHubState: persistentState });
 }
 
 /**
@@ -278,6 +284,10 @@ function handleShortcutSubmit() {
     } else {
         state.shortcuts.push({ id: Date.now(), ...data });
     }
+
+    // Clear search to show the new/edited shortcut
+    state.searchQuery = '';
+    if (searchInput) searchInput.value = '';
 
     saveState();
     render();
