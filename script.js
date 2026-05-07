@@ -82,10 +82,10 @@ function renderCategories() {
         const btn = document.createElement('button');
         btn.className = `category-pill ${state.activeCategory === cat ? 'active' : ''}`;
         btn.textContent = cat;
-        btn.onclick = () => {
+        btn.addEventListener('click', () => {
             state.activeCategory = cat;
             render();
-        };
+        });
         catList.appendChild(btn);
     });
 }
@@ -112,8 +112,8 @@ function renderShortcuts() {
         
         card.innerHTML = `
             <div class="card-actions">
-                <button class="action-btn edit-btn" onclick="openEditModal(${s.id})">✎</button>
-                <button class="action-btn delete-btn" onclick="deleteShortcut(${s.id})">×</button>
+                <button class="action-btn edit-btn">✎</button>
+                <button class="action-btn delete-btn">×</button>
             </div>
             <a href="${s.url}" style="text-decoration:none; color:inherit; width:100%; display:flex; flex-direction:column; align-items:center;">
                 <div class="icon-container">
@@ -122,6 +122,18 @@ function renderShortcuts() {
                 <div class="site-title">${s.name}</div>
             </a>
         `;
+
+        // Add event listeners to the buttons inside the card
+        card.querySelector('.edit-btn').addEventListener('click', (e) => {
+            e.stopPropagation();
+            openEditModal(s.id);
+        });
+
+        card.querySelector('.delete-btn').addEventListener('click', (e) => {
+            e.stopPropagation();
+            deleteShortcut(s.id);
+        });
+        
         grid.insertBefore(card, addBtn);
     });
 }
@@ -137,39 +149,39 @@ function setupEventListeners() {
     });
 
     // Modal toggles
-    document.getElementById('initial-add-btn').onclick = () => openAddModal();
-    document.getElementById('cancel-shortcut').onclick = () => shortcutModal.style.display = 'none';
-    document.getElementById('open-settings').onclick = () => settingsDrawer.style.display = 'flex';
-    document.getElementById('close-settings').onclick = () => settingsDrawer.style.display = 'none';
+    document.getElementById('initial-add-btn').addEventListener('click', () => openAddModal());
+    document.getElementById('cancel-shortcut').addEventListener('click', () => shortcutModal.style.display = 'none');
+    document.getElementById('open-settings').addEventListener('click', () => settingsDrawer.style.display = 'flex');
+    document.getElementById('close-settings').addEventListener('click', () => settingsDrawer.style.display = 'none');
 
     // Form submission
-    shortcutForm.onsubmit = (e) => {
+    shortcutForm.addEventListener('submit', (e) => {
         e.preventDefault();
         handleShortcutSubmit();
-    };
+    });
 
     // Theme toggle
-    themeToggle.onclick = () => {
+    themeToggle.addEventListener('click', () => {
         state.settings.theme = state.settings.theme === 'dark' ? 'light' : 'dark';
         applySettings();
         saveState();
-    };
+    });
 
     // Settings changes
-    document.getElementById('theme-color-picker').onchange = (e) => {
+    document.getElementById('theme-color-picker').addEventListener('change', (e) => {
         state.settings.primaryColor = e.target.value;
         applySettings();
         saveState();
-    };
+    });
 
-    document.getElementById('grid-size-slider').oninput = (e) => {
+    document.getElementById('grid-size-slider').addEventListener('input', (e) => {
         state.settings.gridSize = e.target.value;
         applySettings();
         saveState();
-    };
+    });
 
     // Background upload
-    document.getElementById('bg-upload').onchange = (e) => {
+    document.getElementById('bg-upload').addEventListener('change', (e) => {
         const file = e.target.files[0];
         if (file) {
             const reader = new FileReader();
@@ -180,18 +192,33 @@ function setupEventListeners() {
             };
             reader.readAsDataURL(file);
         }
-    };
+    });
 
-    document.getElementById('reset-bg').onclick = () => {
+    document.getElementById('reset-bg').addEventListener('click', () => {
         state.settings.bgImage = null;
         applySettings();
         saveState();
-    };
+    });
 
     // Data Actions
-    document.getElementById('export-btn').onclick = exportData;
-    document.getElementById('import-btn').onclick = () => document.getElementById('import-file').click();
-    document.getElementById('import-file').onchange = importData;
+    document.getElementById('export-btn').addEventListener('click', exportData);
+    document.getElementById('import-btn').addEventListener('click', () => document.getElementById('import-file').click());
+    document.getElementById('import-file').addEventListener('change', importData);
+    
+    // Onboarding
+    document.getElementById('finish-onboarding').addEventListener('click', () => {
+        chrome.storage.local.set({ hasOnboarded: true });
+        document.getElementById('onboarding').style.display = 'none';
+    });
+
+    // Next slide onboarding
+    document.querySelectorAll('.next-slide').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const slides = document.querySelectorAll('.slide');
+            slides[0].classList.remove('active');
+            slides[1].classList.add('active');
+        });
+    });
 
     // Keyboard shortcut (/)
     window.addEventListener('keydown', (e) => {
