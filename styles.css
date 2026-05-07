@@ -11,13 +11,7 @@
     --transition: all 0.2s ease-in-out;
 }
 
-[data-theme="light"] {
-    --bg-dark: #f8fafc;
-    --glass-bg: rgba(0, 0, 0, 0.05);
-    --glass-border: rgba(0, 0, 0, 0.1);
-    --text-main: #1e293b;
-    --text-muted: #64748b;
-}
+/* Theme overrides removed to stay in Blue/Black/White permanently */
 
 * {
     margin: 0;
