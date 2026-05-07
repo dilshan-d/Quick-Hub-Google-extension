@@ -226,13 +226,15 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.7);
+    background: rgba(0, 0, 0, 0.8);
     backdrop-filter: blur(8px);
     display: none;
-    align-items: center;
+    align-items: flex-start; /* Changed from center to allow scrolling from top */
     justify-content: center;
     z-index: 1000;
     animation: fadeIn 0.3s ease;
+    overflow-y: auto; /* Allow scrolling if content is too tall */
+    padding: 2rem 0;
 }
 
 @keyframes fadeIn {
@@ -241,17 +243,17 @@ body {
 }
 
 .modal-content, .drawer-content, .onboarding-card {
-    background: rgba(15, 15, 15, 0.95);
+    background: rgba(15, 15, 15, 0.98);
     border: 1px solid var(--glass-border);
-    padding: 2rem;
+    padding: 1.5rem; /* Reduced padding */
     border-radius: 24px;
     color: var(--pure-white);
     width: 90%;
     max-width: 400px;
     box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
     position: relative;
-    overflow: hidden;
 }
+/* Removed overflow: hidden to allow select dropdowns to pop out if needed, though usually they are internal */
 
 .modal-content::before {
     content: '';
@@ -272,10 +274,10 @@ body {
 
 /* Form Styling */
 .form-group {
-    margin-bottom: 1.2rem;
+    margin-bottom: 1rem; /* Reduced margin */
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
+    gap: 0.4rem; /* Reduced gap */
 }
 
 .form-group label {
@@ -291,7 +293,7 @@ body {
     background: rgba(255, 255, 255, 0.05);
     border: 1px solid var(--glass-border);
     border-radius: 12px;
-    padding: 0.8rem 1rem;
+    padding: 0.7rem 0.9rem; /* Slightly more compact */
     color: var(--pure-white);
     font-size: 0.9rem;
     outline: none;
@@ -321,7 +323,8 @@ body {
 .modal-actions {
     display: flex;
     gap: 1rem;
-    margin-top: 2rem;
+    margin-top: 1.5rem;
+    padding-bottom: 1rem; /* Space at the bottom of the content */
 }
 
 .modal-actions button {
