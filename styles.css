@@ -1,6 +1,6 @@
 :root {
     --primary-color: #00d2ff;
-    --bg-dark: #0f172a;
+    --bg-dark: transparent;
     --bg-light: #f8fafc;
     --glass-bg: rgba(255, 255, 255, 0.05);
     --glass-border: rgba(255, 255, 255, 0.1);
