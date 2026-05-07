@@ -16,8 +16,7 @@ let state = {
     shortcuts: [],
     categories: [],
     settings: {
-        theme: 'dark',
-        primaryColor: '#00d2ff',
+        primaryColor: '#2563eb',
         gridSize: '110',
         bgImage: null
     },
@@ -165,13 +164,6 @@ function setupEventListeners() {
         handleShortcutSubmit();
     });
 
-    // Theme toggle
-    themeToggle.addEventListener('click', () => {
-        state.settings.theme = state.settings.theme === 'dark' ? 'light' : 'dark';
-        applySettings();
-        saveState();
-    });
-
     // Settings changes
     document.getElementById('theme-color-picker').addEventListener('change', (e) => {
         state.settings.primaryColor = e.target.value;
@@ -301,15 +293,8 @@ function deleteShortcut(id) {
 }
 
 function applySettings() {
-    document.documentElement.setAttribute('data-theme', state.settings.theme);
-    document.documentElement.style.setProperty('--primary-color', state.settings.primaryColor);
-    
-    if (state.settings.bgImage) {
-        document.body.style.backgroundImage = `url(${state.settings.bgImage})`;
-        document.body.style.backgroundSize = 'cover';
-    } else {
-        document.body.style.backgroundImage = 'none';
-    }
+    // Force CSS variables for Blue/Black/White theme
+    document.documentElement.style.setProperty('--primary-blue', state.settings.primaryColor);
 }
 
 /**
