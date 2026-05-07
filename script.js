@@ -115,13 +115,18 @@ function renderShortcuts() {
                 <button class="action-btn edit-btn">✎</button>
                 <button class="action-btn delete-btn">×</button>
             </div>
-            <a href="${s.url}" style="text-decoration:none; color:inherit; width:100%; display:flex; flex-direction:column; align-items:center;">
+            <div class="shortcut-link" style="cursor:pointer; width:100%; display:flex; flex-direction:column; align-items:center;">
                 <div class="icon-container">
                     <img src="${favicon}" alt="${s.name}" onerror="this.src='https://ui-avatars.com/api/?name=${s.name}&background=random'">
                 </div>
                 <div class="site-title">${s.name}</div>
-            </a>
+            </div>
         `;
+
+        // Handle the main click to open in new tab
+        card.querySelector('.shortcut-link').addEventListener('click', () => {
+            chrome.tabs.create({ url: s.url });
+        });
 
         // Add event listeners to the buttons inside the card
         card.querySelector('.edit-btn').addEventListener('click', (e) => {
