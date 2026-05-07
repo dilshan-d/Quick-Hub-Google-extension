@@ -1,14 +1,14 @@
 :root {
-    --primary-color: #00d2ff;
-    --bg-dark: #020617; /* Deep midnight */
-    --bg-gradient: linear-gradient(135deg, #020617 0%, #0f172a 100%);
-    --bg-light: #f8fafc;
-    --glass-bg: rgba(255, 255, 255, 0.03);
-    --glass-border: rgba(255, 255, 255, 0.08);
-    --text-main: #f1f5f9;
-    --text-muted: #94a3b8;
+    --primary-color: #2563eb; /* Vibrant Electric Blue */
+    --bg-dark: #000000; /* Pure Black */
+    --bg-gradient: linear-gradient(180deg, #000000 0%, #000814 100%);
+    --bg-light: #ffffff;
+    --glass-bg: rgba(255, 255, 255, 0.05);
+    --glass-border: rgba(37, 99, 235, 0.2); /* Subtle Blue Border */
+    --text-main: #ffffff; /* Pure White Text */
+    --text-muted: #cbd5e1; /* Very Light Gray */
     --grid-size: 110px;
-    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition: all 0.2s ease-in-out;
 }
 
 [data-theme="light"] {
