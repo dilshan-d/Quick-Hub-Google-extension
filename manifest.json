@@ -1,0 +1,24 @@
+{
+  "manifest_version": 3,
+  "name": "QuickHub Popup",
+  "version": "1.0",
+  "description": "Premium shortcut manager in your toolbar. Quick access to your favorite sites with glassmorphism.",
+  "permissions": [
+    "storage",
+    "favicon"
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "QuickHub",
+    "default_icon": {
+      "16": "assets/icon16.png",
+      "48": "assets/icon48.png",
+      "128": "assets/icon128.png"
+    }
+  },
+  "icons": {
+    "16": "assets/icon16.png",
+    "48": "assets/icon48.png",
+    "128": "assets/icon128.png"
+  }
+}

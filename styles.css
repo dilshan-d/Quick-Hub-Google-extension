@@ -1,0 +1,492 @@
+/* 
+ * QUICKHUB - BLUE, BLACK, AND WHITE THEME
+ * Strictly forced high-contrast professional styling.
+ */
+
+:root {
+    --primary-blue: #2563eb;
+    --pure-black: #000000;
+    --pure-white: #ffffff;
+    --muted-gray: #94a3b8;
+    --glass-bg: rgba(255, 255, 255, 0.05);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --transition: all 0.2s ease;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+body {
+    width: 450px;
+    max-height: 600px;
+    background-color: var(--pure-black) !important;
+    color: var(--pure-white) !important;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+/* Glassmorphism Containers */
+.glass {
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--glass-border);
+}
+
+.app-container {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+/* Header */
+.main-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.search-wrapper {
+    display: flex;
+    align-items: center;
+    padding: 0.6rem 1rem;
+    border-radius: 12px;
+    flex: 1;
+    margin-right: 1rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--glass-border);
+}
+
+.search-icon { width: 18px; color: var(--muted-gray); }
+
+#global-search {
+    background: transparent;
+    border: none;
+    color: var(--pure-white);
+    padding-left: 0.8rem;
+    width: 100%;
+    outline: none;
+}
+
+.icon-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: var(--pure-white);
+    transition: var(--transition);
+}
+
+.icon-btn:hover {
+    background: var(--primary-blue);
+    border-color: transparent;
+}
+
+/* Categories */
+.categories-nav {
+    display: flex;
+    gap: 0.8rem;
+    overflow-x: auto;
+    padding-bottom: 0.5rem;
+}
+
+.categories-list {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.category-pill {
+    padding: 0.5rem 1rem;
+    border-radius: 100px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--glass-border);
+    color: var(--muted-gray);
+    cursor: pointer;
+    font-size: 0.85rem;
+    transition: var(--transition);
+}
+
+.category-pill.active {
+    background: var(--primary-blue);
+    color: var(--pure-white);
+    border-color: transparent;
+    font-weight: 600;
+}
+
+.add-cat-btn {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    color: var(--pure-white);
+    cursor: pointer;
+}
+
+/* Grid Area */
+.grid-area {
+    width: 100%;
+}
+
+.shortcuts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(85px, 1fr));
+    gap: 1.2rem;
+}
+
+.shortcut-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem;
+    border-radius: 16px;
+    border: 1px solid var(--glass-border);
+    background: rgba(255, 255, 255, 0.03);
+    transition: var(--transition);
+    position: relative;
+    cursor: pointer;
+}
+
+.shortcut-card:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: var(--primary-blue);
+    transform: translateY(-4px);
+}
+
+.icon-container {
+    width: 50px;
+    height: 50px;
+    border-radius: 12px;
+    background: #ffffff; /* White background for icons to pop */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 0.6rem;
+    padding: 8px;
+    border: 1px solid var(--glass-border);
+}
+
+.icon-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.site-title {
+    font-size: 0.8rem;
+    color: var(--pure-white);
+    text-align: center;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.card-actions {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    display: flex;
+    gap: 2px;
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+.shortcut-card:hover .card-actions {
+    opacity: 1;
+}
+
+.action-btn {
+    background: rgba(0, 0, 0, 0.6);
+    color: white;
+    border: none;
+    padding: 3px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.65rem;
+}
+
+.add-card {
+    justify-content: center;
+    color: var(--primary-blue);
+    border-style: dashed;
+}
+
+/* Modals & Drawers */
+.modal-overlay, .drawer-overlay, .onboarding-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(8px);
+    display: none;
+    align-items: flex-start; /* Changed from center to allow scrolling from top */
+    justify-content: center;
+    z-index: 1000;
+    animation: fadeIn 0.3s ease;
+    overflow-y: auto; /* Allow scrolling if content is too tall */
+    padding: 2rem 0;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.modal-content, .drawer-content, .onboarding-card {
+    background: rgba(15, 15, 15, 0.98);
+    border: 1px solid var(--glass-border);
+    padding: 1.5rem; /* Reduced padding */
+    border-radius: 24px;
+    color: var(--pure-white);
+    width: 90%;
+    max-width: 400px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    position: relative;
+}
+/* Removed overflow: hidden to allow select dropdowns to pop out if needed, though usually they are internal */
+
+.modal-content::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--primary-blue), transparent);
+}
+
+.modal-content h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+}
+
+/* Form Styling */
+.form-group {
+    margin-bottom: 1rem; /* Reduced margin */
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem; /* Reduced gap */
+}
+
+.form-group label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--muted-gray);
+}
+
+.form-group input, 
+.form-group select {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--glass-border);
+    border-radius: 12px;
+    padding: 0.7rem 0.9rem; /* Slightly more compact */
+    color: var(--pure-white);
+    font-size: 0.9rem;
+    outline: none;
+    transition: var(--transition);
+}
+
+.form-group select {
+    cursor: pointer;
+}
+
+.form-group select option {
+    background: #111;
+    color: #fff;
+}
+
+.form-group input:focus, 
+.form-group select:focus {
+    border-color: var(--primary-blue);
+    background: rgba(255, 255, 255, 0.08);
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+}
+
+.form-group input::placeholder {
+    color: rgba(255, 255, 255, 0.2);
+}
+
+.modal-actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1.5rem;
+    padding-bottom: 1rem; /* Space at the bottom of the content */
+}
+
+.modal-actions button {
+    flex: 1;
+}
+
+.btn-primary {
+    background: var(--primary-blue);
+    color: white;
+    padding: 0.8rem 1.5rem;
+    border-radius: 12px;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: var(--transition);
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4);
+    filter: brightness(1.1);
+}
+
+.btn-secondary {
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--pure-white);
+    border: 1px solid var(--glass-border);
+    padding: 0.8rem 1.5rem;
+    border-radius: 12px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: var(--transition);
+}
+
+.btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: var(--muted-gray);
+}
+
+/* Drawer & Settings Specifics */
+.drawer-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.close-btn {
+    background: transparent;
+    border: none;
+    color: var(--muted-gray);
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.close-btn:hover {
+    color: var(--pure-white);
+}
+
+.settings-sections {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.setting-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.setting-item label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: var(--muted-gray);
+}
+
+.setting-item input[type="color"] {
+    width: 100%;
+    height: 40px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    background: none;
+}
+
+.setting-item input[type="range"] {
+    width: 100%;
+    accent-color: var(--primary-blue);
+}
+
+.data-btns {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.btn-small {
+    flex: 1;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--glass-border);
+    padding: 0.5rem;
+    border-radius: 8px;
+    color: var(--pure-white);
+    font-size: 0.75rem;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.btn-small:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: var(--muted-gray);
+}
+
+/* Onboarding Slides */
+.onboarding-slides {
+    position: relative;
+    height: 300px;
+}
+
+.slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    gap: 1.5rem;
+    animation: slideIn 0.4s ease;
+}
+
+.slide.active {
+    display: flex;
+}
+
+@keyframes slideIn {
+    from { transform: translateX(20px); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+
+.slide h1 {
+    font-size: 2rem;
+    font-weight: 800;
+    line-height: 1.1;
+    background: linear-gradient(135deg, #fff 0%, var(--primary-blue) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.slide p {
+    color: var(--muted-gray);
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+/* Hide scrollbar */
+::-webkit-scrollbar { width: 0px; background: transparent; }
